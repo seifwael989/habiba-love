@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
 <title>صفحة الاسئلة</title>
+
 <style>
 body{
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     direction: rtl;
     background: linear-gradient(135deg,#ffd6e7,#fff0f6);
     display:flex;
@@ -13,6 +15,7 @@ body{
     padding:40px;
     margin:0;
 }
+
 .container{
     background:white;
     padding:35px;
@@ -20,59 +23,107 @@ body{
     width:90%;
     max-width:700px;
     box-shadow:0 0 25px rgba(255,105,180,0.2);
-    position:relative;
-    overflow:hidden;
 }
-.container::before{
-    content:"❤";
-    position:absolute;
-    font-size:120px;
-    opacity:0.05;
-    top:-20px;
-    left:-10px;
-}
+
 h1{
     text-align:center;
     color:#d63384;
     margin-bottom:25px;
 }
+
 .question{
     margin:18px 0;
-    padding:18px;
-    background:#fff5fa;
-    border-radius:18px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
     border:1px solid #ffd6e7;
+    outline:none;
+}
+
+.error{
+    color:#d63384;
+    font-size:14px;
+    margin-top:5px;
+    display:none;
+}
+
+.btn{
+    display:block;
+    margin:25px auto 0;
+    background:#d63384;
+    color:white;
+    padding:12px 30px;
+    border-radius:15px;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
     transition:0.3s;
 }
-.question:hover{
-    transform:scale(1.02);
-    box-shadow:0 0 10px rgba(255,105,180,0.15);
+
+.btn:hover{
+    transform:scale(1.05);
+    background:#c21870;
 }
 </style>
+
 </head>
+
 <body>
+
 <div class="container">
 <h1>💖 اسئلة مفاجئه💖</h1>
 
 <div class="question">
 <p>1 - ايه اكتر حاجه انا بحبها تحسيها بتبعدك عني</p>
-<input type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ffd6e7;">
+<input id="q1" type="text" oninput="hideError('q1','e1')">
+<div id="e1" class="error">جاوبي يا رخمه</div>
 </div>
 
 <div class="question">
 <p>2 - ايه رأيك ف الجبنه القديمه</p>
-<input type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ffd6e7;">
+<input id="q2" type="text" oninput="hideError('q2','e2')">
+<div id="e2" class="error">جاوبي يا رخمه</div>
 </div>
 
 <div class="question">
-<p>3 - اوصفيني بكلمه </p>
-<input type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ffd6e7;">
+<p>3 - اوصفيني بكلمه</p>
+<input id="q3" type="text" oninput="hideError('q3','e3')">
+<div id="e3" class="error">جاوبي يا رخمه</div>
 </div>
 
-<div style="text-align:center;margin-top:25px;">
-<a href="love.html" style="display:inline-block;background:#d63384;color:white;padding:12px 30px;border-radius:15px;text-decoration:none;font-weight:bold;">➡️ خلصت يا مستر</a>
-</div>
+<button class="btn" onclick="goNext()">➡️ خلصت يا مستر</button>
 
 </div>
+
+<script>
+function hideError(inputId,errorId){
+    if(document.getElementById(inputId).value.trim() !== ""){
+        document.getElementById(errorId).style.display = "none";
+    }
+}
+
+function goNext(){
+    let inputs = ["q1","q2","q3"];
+    let allFilled = true;
+
+    inputs.forEach((id,i)=>{
+        let value = document.getElementById(id).value.trim();
+        let errorDiv = document.getElementById("e"+(i+1));
+
+        if(value === ""){
+            errorDiv.style.display = "block";
+            allFilled = false;
+        }
+    });
+
+    if(allFilled){
+        window.location.href = "love.html";
+    }
+}
+</script>
+
 </body>
 </html>
